@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="glass p-10 shadow-2xl text-center border-t-8 border-pink-500">
+    <h2 class="text-3xl font-black text-slate-800 mb-2">Bilan KellyCohera_AI</h2>
+    <p class="text-pink-600 font-bold italic text-lg mb-8">" {{ blague }} "</p>
+
+    <!-- Score Visuel -->
+    <div class="relative inline-flex items-center justify-center w-40 h-40 rounded-full border-8 bg-white mb-8 shadow-inner" style="border-color: {{ couleur }}">
+        <span class="text-4xl font-black" style="color: {{ couleur }}">{{ score }}%</span>
+    </div>
+
+    <div class="text-2xl font-black mb-10 px-4 py-2 rounded-full inline-block bg-white/50 shadow-sm" style="color: {{ couleur }}">
+        {{ verdict }}
+    </div>
+
+    <!-- Section Critiques (Rigueur) -->
+    <div class="text-left space-y-4 mb-12">
+        <h3 class="font-black text-blue-900 text-xs uppercase tracking-[0.2em] mb-4">🔍 Analyse des incohérences :</h3>
+        {% if critiques %}
+            {% for c in critiques %}
+            <div class="p-5 bg-white/40 border-l-8 border-pink-500 rounded-r-2xl shadow-sm transform hover:translate-x-2 transition-transform">
+                <p class="text-slate-800 font-semibold leading-relaxed">{{ c }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="p-5 bg-emerald-100/80 border-l-8 border-emerald-500 rounded-r-2xl">
+                <p class="text-emerald-900 font-bold">✨ Félicitations. KellyCohera_AI n'a détecté aucun mensonge flagrant.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Pied de page résultat -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-blue-600 p-6 rounded-[2rem] text-white shadow-lg">
+            <p class="text-xs font-bold opacity-80 uppercase mb-1">État de Fatigue (IA)</p>
+            <p class="text-2xl font-black">{{ fatigue }}</p>
+        </div>
+        <a href="/" class="bg-white p-6 rounded-[2rem] text-pink-600 font-black border-2 border-pink-100 flex items-center justify-center hover:bg-pink-50 transition-all shadow-lg text-xl">
+            Recommencer 🌸
+        </a>
+    </div>
+</div>
+{% endblock %}

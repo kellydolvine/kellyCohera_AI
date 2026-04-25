@@ -1,0 +1,108 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #0f172a, #1e293b);
+    color: white;
+}
+
+/* CENTRAGE GLOBAL */
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    padding-top: 40px;
+}
+
+/* TITRE */
+h1, h2 {
+    text-align: center;
+    color: #38bdf8;
+}
+
+/* FORM */
+form {
+    background: #111827;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: none;
+}
+
+/* BOUTON */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #38bdf8;
+    border: none;
+    color: black;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0ea5e9;
+}
+
+/* CARDS RESULTAT */
+.card {
+    background: #111827;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* VERDICT COULEUR */
+.green { color: #22c55e; }
+.lightgreen { color: #86efac; }
+.orange { color: #f59e0b; }
+.red { color: #ef4444; }
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #111827;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #374151;
+    text-align: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0f172a;
+    padding: 15px 30px;
+    position: sticky;
+    top: 0;
+}
+
+.navbar .logo {
+    font-weight: bold;
+    color: #38bdf8;
+    font-size: 20px;
+}
+
+.navbar .links a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+.navbar .links a:hover {
+    color: #38bdf8;
+}

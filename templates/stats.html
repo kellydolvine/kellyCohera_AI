@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto animate-fadeIn">
+    
+    <!-- CARTE PRINCIPALE -->
+    <div class="bg-white rounded-[2.5rem] shadow-xl shadow-blue-900/5 border border-gray-100 overflow-hidden">
+        
+        <!-- HEADER DU RÉSULTAT -->
+        <div class="p-8 text-center bg-gradient-to-b from-gray-50 to-white border-b border-gray-50">
+            <div class="inline-block px-4 py-1.5 rounded-full bg-{{ couleur }}-100 text-{{ couleur }}-700 text-xs font-black uppercase tracking-widest mb-4">
+                {{ verdict }}
+            </div>
+            <h1 class="text-4xl font-black text-gray-900 tracking-tight">Analyse de {{ nom }}</h1>
+            <div class="mt-6 flex justify-center items-center gap-8">
+                <div class="text-center">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Score Cohérence</p>
+                    <p class="text-3xl font-black text-gray-800">{{ score }}%</p>
+                </div>
+                <div class="w-px h-10 bg-gray-200"></div>
+                <div class="text-center">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">État IA</p>
+                    <p class="text-3xl font-black text-blue-600">{{ niveau_fatigue }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-8 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            
+            <!-- SECTION GRAPHIQUE -->
+            <div class="relative">
+                <canvas id="chart" class="max-w-[220px] mx-auto"></canvas>
+                <!-- Badge au centre du doughnut -->
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <span class="text-2xl">📊</span>
+                </div>
+            </div>
+
+            <!-- SECTION COMMENTAIRE & BLAGUE -->
+            <div class="space-y-6">
+                <div class="bg-blue-50/50 p-6 rounded-3xl border border-blue-100">
+                    <h3 class="text-sm font-bold text-blue-800 uppercase mb-2 flex items-center gap-2">
+                        <span>🤖</span> L'avis de l'IA
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed italic">
+                        "{{ remarques[0] if remarques else 'Analyse terminée avec succès.' }}"
+                    </p>
+                </div>
+
+                <div class="bg-amber-50/50 p-6 rounded-3xl border border-amber-100">
+                    <p class="text-amber-800 font-medium">
+                         {{ blague }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="p-8 bg-gray-50 flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/" class="px-8 py-4 bg-white border border-gray-200 rounded-2xl font-bold text-gray-700 hover:bg-gray-100 transition-all text-center">
+                🔄 Recommencer
+            </a>
+            <a href="/historique" class="px-8 py-4 bg-blue-600 rounded-2xl font-bold text-white shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all text-center">
+                📋 Voir l'historique
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPTS VISUALISATION -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('chart');
+    
+    new Chart(ctx, {
+        type: 'doughnut', // 'doughnut' est plus moderne que 'pie'
+        data: {
+            labels: ['Fatigue', 'Énergie'],
+            datasets: [{
+                data: [{{ 1 if niveau_fatigue == "Fatigué" else 0 }}, {{ 1 if niveau_fatigue != "Fatigué" else 1 }}],
+                backgroundColor: ['#3b82f6', '#e2e8f0'],
+                borderWidth: 0,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            cutout: '80%', // Crée l'anneau fin
+            plugins: {
+                legend: { display: false } // On cache la légende pour un look épuré
+            }
+        }
+    });
+</script>
+
+<style>
+    @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    .animate-fadeIn { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+</style>
+{% endblock %}

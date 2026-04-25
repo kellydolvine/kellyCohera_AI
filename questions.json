@@ -1,0 +1,75 @@
+[
+    {
+        "id": 1,
+        "question": "Quel est ton nom ?",
+        "name": "nom",
+        "type": "text",
+        "placeholder": "Ex: Jean Dupont",
+        "icon": "👤"
+    },
+    {
+        "id": 2,
+        "question": "Quel est ton âge ?",
+        "name": "age",
+        "type": "number",
+        "placeholder": "Ex: 22",
+        "icon": "🎂"
+    },
+    {
+        "id": 3,
+        "question": "Dans quel pays vis-tu ?",
+        "name": "pays",
+        "type": "text",
+        "placeholder": "Ex: Cameroun, France...",
+        "icon": "🌍"
+    },
+    {
+        "id": 4,
+        "question": "Es-tu étudiant ?",
+        "name": "etudiant",
+        "type": "select",
+        "options": ["oui", "non"],
+        "icon": "📚"
+    },
+    {
+        "id": 5,
+        "question": "Niveau d'étude actuel",
+        "name": "niveau",
+        "type": "select",
+        "options": ["aucun", "primaire", "lycée", "licence", "master", "doctorat"],
+        "icon": "🎓"
+    },
+    {
+        "id": 6,
+        "question": "Travailles-tu actuellement ?",
+        "name": "travail",
+        "type": "select",
+        "options": ["oui", "non"],
+        "icon": "💼"
+    },
+    {
+        "id": 7,
+        "question": "Revenu mensuel estimé (FCFA)",
+        "name": "revenu",
+        "type": "number",
+        "placeholder": "Ex: 150000",
+        "icon": "💵"
+    },
+    {
+        "id": 8,
+        "question": "Te sens-tu fatigué en ce moment ?",
+        "name": "fatigue",
+        "type": "select",
+        "options": ["oui", "non"],
+        "icon": "⚡",
+        "info": "Cette donnée aide l'IA à apprendre votre profil."
+    },
+    {
+        "id": 9,
+        "question": "Heures de sommeil par nuit",
+        "name": "sommeil",
+        "type": "number",
+        "placeholder": "Ex: 7",
+        "icon": "🌙"
+    }
+]
