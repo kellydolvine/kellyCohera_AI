@@ -1,95 +1,95 @@
-:root {
-    --midnight: #0f172a;    /* Bleu nuit pour la profondeur */
-    --flower-pink: #fda4af; /* Rose fleur doux */
-    --flower-purple: #ddd6fe; /* Lavande */
-    --sage-green: #678c7f;  /* Vert feuille */
-    --off-white: #f8fafc;
-}
-
 body {
     margin: 0;
-    font-family: 'Georgia', serif; /* Plus élégant */
-    background: var(--midnight);
-    /* Motif floral discret en fond */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Retour aux couleurs claires avec fleurs en fond */
+    background-color: #fff9fb;
     background-image: url('https://www.transparenttextures.com/patterns/floral-paper.png');
-    color: #334155;
-    min-height: 100vh;
+    color: #333;
+    /* On agrandit l'écriture globale */
+    font-size: 18px; 
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(15, 23, 42, 0.9);
+    background-color: #ffffff;
     padding: 20px 5%;
-    border-bottom: 2px solid var(--flower-pink);
-    backdrop-filter: blur(10px);
+    border-bottom: 2px solid #ffcada;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .navbar .logo { 
     font-weight: bold; 
-    color: var(--flower-pink); 
-    font-size: 1.6rem;
+    font-size: 1.6rem; 
+    color: #d63384; 
 }
 
-.navbar a { color: white; text-decoration: none; margin-left: 20px; font-size: 0.9rem; transition: 0.3s; }
-.navbar a:hover { color: var(--flower-purple); }
+.navbar a { 
+    text-decoration: none; 
+    color: #d63384; 
+    margin-left: 25px; 
+    font-weight: 600;
+}
 
-.container { max-width: 800px; margin: 40px auto; padding: 20px; }
+.container { 
+    max-width: 900px; 
+    margin: 50px auto; 
+    padding: 20px; 
+}
 
-/* Formulaire Blanc Aéré */
+/* Formulaire clair et large */
 form, .card {
     background: white;
-    padding: 45px;
-    border-radius: 30px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    border: 1px solid var(--flower-purple);
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: 1px solid #ffeef2;
 }
 
-h1 { color: var(--midnight); text-align: center; margin-bottom: 30px; }
+h1 { font-size: 2.2rem; color: #d63384; text-align: center; }
 
-label { font-weight: bold; color: var(--sage-green); display: block; margin-top: 15px; }
+label { 
+    display: block; 
+    margin-top: 20px; 
+    font-weight: bold; 
+    color: #555;
+    font-size: 1.1rem;
+}
 
 input, select {
     width: 100%;
-    padding: 14px;
-    margin-top: 8px;
+    padding: 15px;
+    margin-top: 10px;
     border-radius: 12px;
-    border: 2px solid #f1f5f9;
-    background: #fdfdfd;
+    border: 1px solid #ffcada;
+    font-size: 1.1rem; /* Écriture plus grande */
     box-sizing: border-box;
-    font-size: 1rem;
 }
 
-/* Bouton Floral */
+/* Boutons plus gros et lisibles */
 button {
     width: 100%;
-    padding: 18px;
-    background: linear-gradient(135deg, var(--flower-pink), var(--flower-purple));
-    color: var(--midnight);
+    padding: 20px;
+    background-color: #d63384;
+    color: white;
     border: none;
     border-radius: 15px;
+    font-size: 1.3rem;
     font-weight: bold;
-    font-size: 1.1rem;
     cursor: pointer;
-    transition: 0.4s;
     margin-top: 30px;
-    box-shadow: 0 10px 20px rgba(253, 164, 175, 0.3);
+    transition: 0.3s;
 }
 
-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(253, 164, 175, 0.4);
-}
+button:hover { background-color: #b92a6e; transform: scale(1.02); }
 
-/* Tableau Archives */
+/* Table des archives claire */
 .styled-table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
+    margin-top: 20px;
+    font-size: 1.1rem;
 }
-.styled-table thead { background: var(--flower-purple); color: var(--midnight); }
-.styled-table th, .styled-table td { padding: 20px; text-align: left; }
-.styled-table tr:nth-child(even) { background: #faf5ff; }
+.styled-table thead { background-color: #d63384; color: white; }
+.styled-table th, .styled-table td { padding: 18px; text-align: left; border-bottom: 1px solid #eee; }
