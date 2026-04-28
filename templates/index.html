@@ -1,40 +1,36 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>KellyCohera_AI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">🌸 KellyCohera_AI</div>
-        <div>
-            <a href="/">Accueil</a> 
-            <a href="/historique">Archives</a>
-        </div>
+        <div class="logo">KellyCohera_AI</div>
+        <div><a href="/">Accueil</a> <a href="/historique">Archives</a></div>
     </nav>
     <div class="container">
+        <h1>Analyse de Cohérence</h1>
         <form action="/analyse" method="POST">
-            <h1>Analyse de Cohérence</h1>
             <label>Nom</label>
-            <input type="text" name="nom" placeholder="Votre nom" required>
+            <input type="text" name="nom" required>
             
             <label>Âge</label>
-            <input type="number" name="age" placeholder="Ex: 25" required>
+            <input type="number" name="age" required>
             
             <label>Revenu Mensuel</label>
-            <input type="number" name="revenu" placeholder="Ex: 1500" required>
+            <input type="number" name="revenu" required>
             
             <label>Heures de sommeil</label>
-            <input type="number" name="sommeil" placeholder="Par nuit" required>
+            <input type="number" name="sommeil" required>
             
             <label>Étudiant ?</label>
             <select name="etudiant">
-                <option value="oui">Oui, je suis étudiant</option>
-                <option value="non">Non, je suis actif</option>
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
             </select>
-            <button type="submit">Lancer l'Analyse ✨</button>
+            
+            <button type="submit">Analyser</button>
         </form>
     </div>
 </body>
