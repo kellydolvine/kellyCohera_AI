@@ -3,7 +3,6 @@
 {% block content %}
 <div class="space-y-8 animate-fadeIn">
     
-    <!-- HEADER -->
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
             <h1 class="text-3xl font-black text-gray-900 tracking-tight">📊 Dashboard Analytique</h1>
@@ -16,10 +15,8 @@
         </div>
     </div>
 
-    <!-- KPI CARDS (Statistiques Clés) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         
-        <!-- Total -->
         <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 border-b-4 border-b-blue-500">
             <div class="flex items-center justify-between mb-4">
                 <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-2xl">👥</div>
@@ -33,7 +30,6 @@
             </div>
         </div>
 
-        <!-- Âge Moyen -->
         <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 border-b-4 border-b-emerald-500">
             <div class="flex items-center justify-between mb-4">
                 <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl">🎂</div>
@@ -47,13 +43,12 @@
             </div>
         </div>
 
-        <!-- Revenu Moyen -->
         <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 border-b-4 border-b-amber-500">
             <div class="flex items-center justify-between mb-4">
                 <div class="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-2xl">💰</div>
                 <div class="text-right">
                     <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Revenu Avg</p>
-                    <h2 class="text-3xl font-black text-gray-800">{{ revenu_moyen }}<span class="text-sm font-normal text-gray-400 ml-1">€</span></h2>
+                    <h2 class="text-3xl font-black text-gray-800">{{ revenu_moyen }}<span class="text-sm font-normal text-gray-400 ml-1">FCFA</span></h2>
                 </div>
             </div>
             <div class="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
@@ -61,7 +56,6 @@
             </div>
         </div>
 
-        <!-- Étudiants -->
         <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 border-b-4 border-b-purple-500">
             <div class="flex items-center justify-between mb-4">
                 <div class="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center text-2xl">🎓</div>
@@ -76,12 +70,9 @@
         </div>
     </div>
 
-    <!-- DATA TABLE SECTION -->
     <div class="bg-white shadow-xl shadow-blue-900/5 rounded-[2rem] border border-gray-100 overflow-hidden">
         <div class="p-8 border-b border-gray-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div>
-                <h3 class="font-black text-gray-800 text-xl italic underline decoration-blue-500 decoration-4 underline-offset-8">Flux de données</h3>
-            </div>
+            <h3 class="font-black text-gray-800 text-xl italic underline decoration-blue-500 decoration-4 underline-offset-8">Flux de données</h3>
             <div class="flex items-center gap-2 text-sm text-emerald-600 font-bold bg-emerald-50 px-4 py-1.5 rounded-full">
                 <span class="relative flex h-2 w-2">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -98,7 +89,7 @@
                         <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Profil Utilisateur</th>
                         <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-center">Score Co-h</th>
                         <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Statut Logique</th>
-                        <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-right">Date de saisie</th>
+                        <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-right">Date</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
@@ -106,7 +97,7 @@
                     <tr class="group hover:bg-gray-50/80 transition-all cursor-default">
                         <td class="px-8 py-6">
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-200 group-hover:scale-110 transition-transform">
+                                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-200">
                                     {{ d.nom[0] | upper }}
                                 </div>
                                 <div>
@@ -129,15 +120,13 @@
                             </span>
                         </td>
                         <td class="px-8 py-6 text-right">
-                            <div class="text-sm font-black text-gray-700">{{ d.date_saisie.split(' ')[0] }}</div>
-                            <div class="text-[10px] font-bold text-gray-400 uppercase">{{ d.date_saisie.split(' ')[1] }}</div>
+                            <div class="text-sm font-black text-gray-700">{{ d.date_saisie }}</div>
                         </td>
                     </tr>
                     {% else %}
                     <tr>
-                        <td colspan="4" class="px-8 py-24 text-center">
-                            <div class="text-6xl mb-4 opacity-20">📥</div>
-                            <p class="text-gray-400 font-bold italic">Le dashboard est vide, commencez par collecter des données !</p>
+                        <td colspan="4" class="px-8 py-24 text-center text-gray-400 font-bold italic">
+                            Le dashboard est vide, commencez par collecter des données !
                         </td>
                     </tr>
                     {% endfor %}
@@ -146,9 +135,4 @@
         </div>
     </div>
 </div>
-
-<style>
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-    .animate-fadeIn { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-</style>
 {% endblock %}
