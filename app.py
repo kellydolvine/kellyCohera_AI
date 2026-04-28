@@ -33,7 +33,6 @@ def analyse():
         sommeil = int(request.form.get("sommeil"))
         etudiant = request.form.get("etudiant")
 
-        # Calcul simple de cohérence
         score = 100
         if age < 18 and revenu > 2000: score -= 30
         if sommeil < 4: score -= 20
@@ -49,7 +48,7 @@ def analyse():
 
         return render_template("result.html", nom=nom, score=score, verdict=verdict, niveau_fatigue=res_fatigue)
     except:
-        return "Erreur lors de la saisie."
+        return "Erreur lors de la saisie des données."
 
 @app.route('/historique')
 def historique():

@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Résultat</title>
+    <meta charset="UTF-8">
+    <title>Résultat - KellyCohera_AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <div class="card">
+        <div class="card" style="text-align: center;">
             <h1>Résultat pour {{ nom }}</h1>
-            <p>Score de cohérence : {{ score }}%</p>
-            <p>Verdict : {{ verdict }}</p>
-            <p>Analyse de fatigue : {{ niveau_fatigue }}</p>
-            <button onclick="window.location.href='/'">Recommencer</button>
+            <div style="font-size: 3rem; font-weight: 800; color: #db2777; margin: 20px 0;">
+                {{ score }}%
+            </div>
+            <p><strong>Verdict :</strong> {{ verdict }}</p>
+            <p><strong>Analyse IA :</strong> {{ niveau_fatigue }}</p>
+            <button onclick="window.location.href='/'">🔄 Recommencer</button>
+            <a href="/historique" style="display: block; margin-top: 20px; color: #3b82f6; text-decoration: none;">Voir les archives</a>
         </div>
     </div>
 </body>
