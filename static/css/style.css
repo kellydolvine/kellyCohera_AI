@@ -1,60 +1,56 @@
-/* VARIABLES POUR UN CHANGEMENT FACILE */
+/* Palette : Rose Poudré, Vert Sauge, Or Doux, Blanc Crème */
 :root {
-    --bg-dark: #0f172a;
-    --bg-card: #1e293b;
-    --accent: #22d3ee; /* Cyan Néon */
-    --accent-hover: #0891b2;
-    --text-main: #f1f5f9;
-    --border-color: rgba(34, 211, 238, 0.2);
+    --bg-creme: #fdfbf9;
+    --rose-poudret: #fce7f3; /* Rose très doux pour le fond */
+    --vert-sauge: #678c7f;    /* Pour les titres et boutons */
+    --vert-hover: #4f6b61;
+    --text-dark: #374151;
+    --or-doux: #d4af37;      /* Pour les accents */
 }
 
 body {
     margin: 0;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
-    color: var(--text-main);
+    font-family: 'Georgia', serif; /* Une police plus élégante */
+    background-color: var(--rose-poudret);
+    /* Ajout d'un motif floral discret en fond */
+    background-image: url('https://www.transparenttextures.com/patterns/az-subtle.png');
+    color: var(--text-dark);
     min-height: 100vh;
 }
 
-/* NAVBAR STYLE TECH */
+/* NAVBAR Douce */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(15, 23, 42, 0.9);
-    backdrop-filter: blur(10px); /* Effet de flou moderne */
+    background-color: white;
     padding: 15px 40px;
-    position: sticky;
-    top: 0;
-    border-bottom: 1px solid var(--border-color);
-    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-bottom: 2px solid var(--rose-poudret);
 }
 
 .navbar .logo {
-    font-weight: 800;
-    color: var(--accent);
+    font-weight: bold;
+    color: var(--vert-sauge);
     font-size: 22px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    font-family: 'Times New Roman', serif;
 }
 
 .navbar .links a {
-    color: #94a3b8;
+    color: var(--text-dark);
     margin-left: 25px;
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 15px;
     transition: 0.3s;
 }
 
 .navbar .links a:hover {
-    color: var(--accent);
-    text-shadow: 0 0 8px rgba(34, 211, 238, 0.5);
+    color: var(--or-doux);
 }
 
 /* CONTAINER */
 .container {
-    width: 95%;
+    width: 90%;
     max-width: 800px;
     margin: auto;
     padding: 40px 0;
@@ -62,101 +58,88 @@ body {
 
 h1, h2 {
     text-align: center;
-    color: white;
-    font-weight: 800;
-    letter-spacing: -0.5px;
+    color: var(--vert-sauge);
+    font-family: 'Times New Roman', serif;
 }
 
-/* FORMULAIRE - L'EFFET DE PROFONDEUR */
-form {
-    background: rgba(30, 41, 59, 0.7);
+/* FORMULAIRE & CARDS Elégants */
+form, .card {
+    background-color: white;
     padding: 35px;
-    border-radius: 24px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(103, 140, 127, 0.1); /* Ombre teintée sauge */
+    border: 1px solid #f3e8ff;
 }
 
 label {
+    display: block;
+    margin-top: 15px;
+    color: var(--vert-sauge);
+    font-weight: bold;
     font-size: 14px;
-    font-weight: 600;
-    color: #94a3b8;
-    margin-left: 5px;
 }
 
 input, select {
     width: 100%;
-    padding: 14px;
-    margin-top: 8px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    border: 1px solid #334155;
-    background: #0f172a;
-    color: white;
-    font-size: 15px;
-    box-sizing: border-box; /* Évite que ça dépasse */
-    transition: all 0.3s ease;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background-color: var(--bg-creme);
+    color: var(--text-dark);
+    box-sizing: border-box;
 }
 
 input:focus, select:focus {
     outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 10px rgba(34, 211, 238, 0.2);
-    background: #1e293b;
+    border-color: var(--or-doux);
+    box-shadow: 0 0 5px rgba(212, 175, 55, 0.2);
 }
 
-/* BOUTON ÉLECTRIQUE */
+/* BOUTON SAUGE */
 button {
     width: 100%;
-    padding: 16px;
-    background: var(--accent);
+    padding: 15px;
+    background-color: var(--vert-sauge);
     border: none;
-    color: #0f172a;
-    font-weight: 800;
+    color: white;
+    font-weight: bold;
     font-size: 16px;
-    text-transform: uppercase;
-    border-radius: 14px;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 10px;
+    margin-top: 25px;
 }
 
 button:hover {
-    background: white;
-    box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
-    transform: translateY(-2px);
+    background-color: var(--vert-hover);
+    transform: translateY(-1px);
 }
 
 /* TABLES & DASHBOARD */
 table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
+    border-collapse: collapse;
     margin-top: 30px;
-    background: #111827;
-    border-radius: 15px;
+    background-color: white;
+    border-radius: 10px;
     overflow: hidden;
-    border: 1px solid #334155;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 th {
-    background: #1e293b;
+    background-color: var(--rose-poudret);
     padding: 15px;
-    color: var(--accent);
-    font-size: 13px;
-    text-transform: uppercase;
+    color: var(--vert-sauge);
 }
 
 td {
     padding: 15px;
-    border-bottom: 1px solid #1e293b;
-    font-size: 14px;
-    color: #cbd5e1;
+    border-bottom: 1px solid #f3e8ff;
 }
 
-tr:last-child td { border-bottom: none; }
-tr:hover td { background: rgba(255,255,255,0.02); }
-
-/* STATUS COLORS */
-.green { color: #4ade80; font-weight: bold; }
-.orange { color: #fbbf24; font-weight: bold; }
-.red { color: #f87171; font-weight: bold; }
+/* STATUS COLORS Douces */
+.green { color: #166534; font-weight: bold; }
+.orange { color: #b45309; font-weight: bold; }
+.red { color: #991b1b; font-weight: bold; }

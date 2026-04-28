@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verdict de l'IA - KellyCohera</title>
+    <title>Résultat - KellyCohera_AI</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
     <nav class="navbar">
-        <div class="logo">KELLYCOHERA <span style="color:white">AI</span></div>
+        <div class="logo">KellyCohera_AI</div>
         <div class="links">
             <a href="{{ url_for('home') }}">Accueil</a>
             <a href="{{ url_for('historique') }}">Archives</a>
@@ -18,53 +17,46 @@
 
     <div class="container">
         <div class="card">
-            <h1>Rapport d'Expertise</h1>
-            <p style="text-align: center; color: #94a3b8; margin-bottom: 30px;">
-                Analyse terminée pour le sujet : <strong>{{ nom }}</strong>
-            </p>
+            <h1>Résultat de l'Expertise</h1>
+            <p style="text-align: center;">Sujet : <strong>{{ nom }}</strong></p>
 
-            <div style="text-align: center; margin-bottom: 40px;">
-                <div style="display: inline-block; padding: 20px 40px; border-radius: 20px; border: 2px solid var(--accent); background: rgba(34, 211, 238, 0.05);">
-                    <h2 style="font-size: 50px; margin: 0; color: var(--accent);">{{ score }}%</h2>
-                    <p style="margin: 0; font-weight: bold; text-transform: uppercase; font-size: 14px;">{{ verdict }}</p>
-                </div>
+            <div style="text-align: center; margin: 20px 0;">
+                <h2 class="{{ 'green' if score > 80 else 'orange' if score > 50 else 'red' }}">
+                    Score de cohérence : {{ score }}%
+                </h2>
+                <p>Verdict : <strong>{{ verdict }}</strong></p>
             </div>
 
-            <div style="margin-bottom: 30px;">
-                <h3 style="font-size: 16px; margin-bottom: 15px; color: var(--accent);">🧐 L'analyse de KellyCohera :</h3>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div class="remarques">
+                <h3>Observations du système :</h3>
+                <ul>
                     {% for r in remarques %}
-                    <div style="background: #0f172a; padding: 15px; border-radius: 12px; border-left: 4px solid var(--accent); font-style: italic;">
-                        " {{ r }} "
-                    </div>
+                    <li>{{ r }}</li>
                     {% endfor %}
-                </div>
+                </ul>
             </div>
 
-            <div style="background: #1e293b; padding: 20px; border-radius: 15px; border: 1px solid #334155; margin-bottom: 40px;">
-                <p style="color: #64748b; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 5px;">Prédiction de Fatigue :</p>
-                <p style="font-size: 16px; margin: 0; color: #f1f5f9;">{{ niveau_fatigue }}</p>
+            <div class="card" style="background: #1f2937; border: 1px solid #374151; margin-top: 20px;">
+                <h3>Analyse de fatigue :</h3>
+                <p>{{ niveau_fatigue }}</p>
             </div>
 
-            <div style="display: flex; gap: 20px;">
-                <a href="{{ url_for('home') }}" style="flex: 1; text-decoration: none;">
-                    <button type="button" style="background: #334155; color: white;">
-                        🔄 RECOMMENCER
-                    </button>
-                </a>
+            <div style="display: flex; gap: 15px; margin-top: 30px;">
                 
-                <a href="{{ url_for('historique') }}" style="flex: 1; text-decoration: none;">
-                    <button type="button">
-                        📊 ARCHIVES
-                    </button>
-                </a>
+                <button type="button" 
+                        onclick="window.location.href='{{ url_for('home') }}'" 
+                        style="flex: 1; background: #4b5563; cursor: pointer;">
+                    🔄 RECOMMENCER
+                </button>
+
+                <button type="button" 
+                        onclick="window.location.href='{{ url_for('historique') }}'" 
+                        style="flex: 1; cursor: pointer;">
+                    📊 VOIR LES ARCHIVES
+                </button>
+
             </div>
         </div>
     </div>
-
-    <footer style="text-align: center; margin-top: 50px; color: #475569; font-size: 11px; letter-spacing: 2px; text-transform: uppercase;">
-        KellyCohera AI System v2.0 // 2026
-    </footer>
-
 </body>
 </html>
