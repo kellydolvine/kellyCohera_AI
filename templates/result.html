@@ -2,59 +2,39 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Résultat - KellyCohera_AI</title>
+    <title>Verdict - KellyCohera_AI</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">KellyCohera_AI</div>
-        <div class="links">
-            <a href="{{ url_for('home') }}">Accueil</a>
-            <a href="{{ url_for('historique') }}">Archives</a>
-        </div>
+        <div class="logo">KELLYCOHERA_AI</div>
+        <div><a href="/">Accueil</a><a href="/historique">Archives</a></div>
     </nav>
 
     <div class="container">
-        <div class="card">
-            <h1>Résultat de l'Expertise</h1>
-            <p style="text-align: center;">Sujet : <strong>{{ nom }}</strong></p>
+        <div class="result-box">
+            <h1 style="color: var(--hot-pink);">Rapport d'Expertise</h1>
+            <p style="opacity: 0.8;">Analyse pour <strong>{{ nom }}</strong></p>
 
-            <div style="text-align: center; margin: 20px 0;">
-                <h2 class="{{ 'green' if score > 80 else 'orange' if score > 50 else 'red' }}">
-                    Score de cohérence : {{ score }}%
-                </h2>
-                <p>Verdict : <strong>{{ verdict }}</strong></p>
+            <div style="margin: 40px 0;">
+                <div style="font-size: 4.5rem; font-weight: 900; text-shadow: 0 0 20px rgba(244, 114, 182, 0.3);">{{ score }}%</div>
+                <div style="color: var(--hot-pink); letter-spacing: 4px; font-weight: bold; text-transform: uppercase;">{{ verdict }}</div>
             </div>
 
-            <div class="remarques">
-                <h3>Observations du système :</h3>
-                <ul>
-                    {% for r in remarques %}
-                    <li>{{ r }}</li>
-                    {% endfor %}
-                </ul>
+            <div style="text-align: left; background: rgba(255, 255, 255, 0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);">
+                <h3 style="color: var(--hot-pink); margin-top: 0;">🧐 Observations du Système :</h3>
+                {% for r in remarques %}
+                <p style="font-style: italic; border-left: 3px solid var(--deep-pink); padding-left: 15px;">" {{ r }} "</p>
+                {% endfor %}
             </div>
 
-            <div class="card" style="background: #1f2937; border: 1px solid #374151; margin-top: 20px;">
-                <h3>Analyse de fatigue :</h3>
-                <p>{{ niveau_fatigue }}</p>
+            <div style="margin-top: 25px; padding: 15px; border-radius: 10px; background: rgba(190, 24, 93, 0.1); color: var(--hot-pink);">
+                <strong>Diagnostic Fatigue :</strong> {{ niveau_fatigue }}
             </div>
 
-            <div style="display: flex; gap: 15px; margin-top: 30px;">
-                
-                <button type="button" 
-                        onclick="window.location.href='{{ url_for('home') }}'" 
-                        style="flex: 1; background: #4b5563; cursor: pointer;">
-                    🔄 RECOMMENCER
-                </button>
-
-                <button type="button" 
-                        onclick="window.location.href='{{ url_for('historique') }}'" 
-                        style="flex: 1; cursor: pointer;">
-                    📊 VOIR LES ARCHIVES
-                </button>
-
+            <div style="display: flex; gap: 15px; margin-top: 40px;">
+                <button onclick="window.location.href='/'" style="background: #334155; flex: 1;">🔄 REFAIRE</button>
+                <button onclick="window.location.href='/historique'" style="flex: 1;">📊 ARCHIVES</button>
             </div>
         </div>
     </div>

@@ -1,145 +1,101 @@
-/* Palette : Rose Poudré, Vert Sauge, Or Doux, Blanc Crème */
 :root {
-    --bg-creme: #fdfbf9;
-    --rose-poudret: #fce7f3; /* Rose très doux pour le fond */
-    --vert-sauge: #678c7f;    /* Pour les titres et boutons */
-    --vert-hover: #4f6b61;
-    --text-dark: #374151;
-    --or-doux: #d4af37;      /* Pour les accents */
+    --midnight: #0f172a;    /* Bleu nuit profond */
+    --deep-pink: #be185d;   /* Rose foncé élégant */
+    --hot-pink: #f472b6;    /* Rose plus clair pour les détails */
+    --soft-bg: #f8fafc;
 }
 
 body {
     margin: 0;
-    font-family: 'Georgia', serif; /* Une police plus élégante */
-    background-color: var(--rose-poudret);
-    /* Ajout d'un motif floral discret en fond */
-    background-image: url('https://www.transparenttextures.com/patterns/az-subtle.png');
-    color: var(--text-dark);
-    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    background: var(--soft-bg);
+    color: var(--midnight);
 }
 
-/* NAVBAR Douce */
+/* NAVBAR : Fond nuit, texte rose */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
-    padding: 15px 40px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    border-bottom: 2px solid var(--rose-poudret);
+    background: var(--midnight);
+    padding: 15px 5%;
+    border-bottom: 3px solid var(--deep-pink);
 }
 
-.navbar .logo {
-    font-weight: bold;
-    color: var(--vert-sauge);
-    font-size: 22px;
-    font-family: 'Times New Roman', serif;
+.navbar .logo { 
+    font-weight: 900; 
+    color: var(--deep-pink); 
+    font-size: 1.5rem;
+    letter-spacing: 1px;
 }
 
-.navbar .links a {
-    color: var(--text-dark);
-    margin-left: 25px;
-    text-decoration: none;
-    font-size: 15px;
-    transition: 0.3s;
-}
+.navbar a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; }
+.navbar a:hover { color: var(--hot-pink); }
 
-.navbar .links a:hover {
-    color: var(--or-doux);
-}
+/* CONTAINER AÉRÉ */
+.container { max-width: 800px; margin: 40px auto; padding: 20px; }
 
-/* CONTAINER */
-.container {
-    width: 90%;
-    max-width: 800px;
-    margin: auto;
-    padding: 40px 0;
-}
-
-h1, h2 {
-    text-align: center;
-    color: var(--vert-sauge);
-    font-family: 'Times New Roman', serif;
-}
-
-/* FORMULAIRE & CARDS Elégants */
+/* FORMULAIRE & CARDS */
 form, .card {
-    background-color: white;
-    padding: 35px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(103, 140, 127, 0.1); /* Ombre teintée sauge */
-    border: 1px solid #f3e8ff;
+    background: white;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+    border: 1px solid #f1f5f9;
 }
 
-label {
-    display: block;
-    margin-top: 15px;
-    color: var(--vert-sauge);
-    font-weight: bold;
-    font-size: 14px;
-}
+label { font-weight: bold; color: var(--midnight); display: block; margin-bottom: 5px; }
 
 input, select {
     width: 100%;
-    padding: 12px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-    background-color: var(--bg-creme);
-    color: var(--text-dark);
+    padding: 14px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    border: 2px solid #f1f5f9;
+    background: #fdfdfd;
     box-sizing: border-box;
 }
 
-input:focus, select:focus {
-    outline: none;
-    border-color: var(--or-doux);
-    box-shadow: 0 0 5px rgba(212, 175, 55, 0.2);
-}
-
-/* BOUTON SAUGE */
+/* BOUTON ROSE FONCÉ */
 button {
     width: 100%;
-    padding: 15px;
-    background-color: var(--vert-sauge);
-    border: none;
+    padding: 18px;
+    background: var(--deep-pink);
     color: white;
-    font-weight: bold;
-    font-size: 16px;
-    border-radius: 10px;
+    border: none;
+    border-radius: 15px;
+    font-weight: 800;
+    font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 25px;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(190, 24, 93, 0.3);
 }
 
 button:hover {
-    background-color: var(--vert-hover);
-    transform: translateY(-1px);
+    background: #9d174d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(190, 24, 93, 0.4);
 }
 
-/* TABLES & DASHBOARD */
-table {
+/* RÉSULTAT : Dégradé Bleu Nuit et Rose */
+.result-box {
+    background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+    color: white;
+    padding: 45px;
+    border-radius: 30px;
+    border-right: 8px solid var(--deep-pink);
+    text-align: center;
+}
+
+/* ARCHIVES : Table Lumineuse */
+.styled-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 30px;
-    background-color: white;
-    border-radius: 10px;
+    background: white;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
-
-th {
-    background-color: var(--rose-poudret);
-    padding: 15px;
-    color: var(--vert-sauge);
-}
-
-td {
-    padding: 15px;
-    border-bottom: 1px solid #f3e8ff;
-}
-
-/* STATUS COLORS Douces */
-.green { color: #166534; font-weight: bold; }
-.orange { color: #b45309; font-weight: bold; }
-.red { color: #991b1b; font-weight: bold; }
+.styled-table thead { background: var(--midnight); color: white; }
+.styled-table th { padding: 20px; border-bottom: 3px solid var(--deep-pink); }
+.styled-table td { padding: 18px; border-bottom: 1px solid #f1f5f9; }
+.styled-table tr:hover { background: #fff1f2; }
