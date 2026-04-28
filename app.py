@@ -12,14 +12,11 @@ def get_db_connection():
     return conn
 
 def init_db():
-    """Initialise la base de données avec la structure correcte."""
+    """Initialise la structure si elle n'existe pas."""
     conn = get_db_connection()
     with conn:
-        # On ne supprime la table que si on veut vraiment repartir de zéro
-        # Pour cette fois, on s'assure qu'elle est propre
-        conn.execute("DROP TABLE IF EXISTS collectes")
         conn.execute("""
-        CREATE TABLE collectes (
+        CREATE TABLE IF NOT EXISTS collectes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nom TEXT, age INTEGER, pays TEXT, etudiant TEXT, niveau TEXT, 
             travail TEXT, revenu INTEGER, fatigue_ressentie TEXT, sommeil INTEGER,
@@ -29,16 +26,48 @@ def init_db():
     conn.close()
 
 def auditer_coherence(data):
+    """Analyse rigoureuse et taquine des données saisies."""
     score = 100
-    alertes = []
-    if data['travail'] == "non" and data['revenu'] > 150000:
-        score -= 40
-        alertes.append("Revenus élevés sans emploi.")
-    if data['age'] < 16 and data['niveau'] not in ["aucun", "primaire"]:
+    remarques = []
+    
+    # 1. Analyse de l'âge
+    if data['age'] <= 0:
         score -= 50
-        alertes.append("Âge incohérent avec le niveau.")
-    verdict = "Fiction 🏆" if score < 60 else "Suspect 🤨" if score < 90 else "Sincère ✨"
-    return max(0, score), verdict, alertes
+        remarques.append("0 an ? Tu es un concept abstrait ou un futur génie pas encore né ? 🐣")
+    elif data['age'] > 115:
+        score -= 40
+        remarques.append(f"{data['age']} ans ? Respect pour ta longévité, ou ton imagination débordante ! 🦖")
+
+    # 2. Analyse Revenu vs Travail
+    if data['travail'] == "non" and data['revenu'] > 0:
+        if data['revenu'] > 100000:
+            score -= 40
+            remarques.append("Pas de job mais un revenu de PDG... On blanchit de l'argent ou on a un oncle en Amérique ? 💸")
+        else:
+            remarques.append("Pas d'emploi mais des revenus ? La vie de rentier a l'air douce ! 🍷")
+    
+    # 3. Analyse Sommeil
+    if data['sommeil'] < 2:
+        score -= 30
+        remarques.append("Moins de 2h de sommeil... Tu es un robot ou tu vis sur une autre planète ? 🧛")
+    elif data['sommeil'] > 18:
+        score -= 20
+        remarques.append("18h de dodo ? C'est une expertise fatigue, pas une étude sur l'hibernation des ours ! 🐻")
+
+    # 4. Analyse Études vs Âge
+    if data['etudiant'] == "oui" and data['age'] < 6:
+        score -= 50
+        remarques.append("Déjà étudiant à cet âge ? Bébé prodige ou petite erreur de saisie ? 👶")
+
+    # Verdict final
+    if score >= 90:
+        verdict = "Sincère ✨"
+    elif score >= 60:
+        verdict = "Suspect 🤨"
+    else:
+        verdict = "Mythomane 🏆"
+        
+    return score, verdict, remarques
 
 @app.route('/')
 def home():
@@ -51,30 +80,28 @@ def home():
 
 @app.route('/analyse', methods=['POST'])
 def analyse():
+    # Conversion sécurisée sans plantage
+    def force_int(val):
+        try: return int(float(str(val).strip()))
+        except: return 0
+
+    data = {
+        "nom": request.form.get("nom", "Anonyme"),
+        "age": force_int(request.form.get("age")),
+        "pays": request.form.get("pays", "Inconnu"),
+        "etudiant": request.form.get("etudiant", "non"),
+        "niveau": request.form.get("niveau", "aucun"),
+        "travail": request.form.get("travail", "non"),
+        "revenu": force_int(request.form.get("revenu")),
+        "fatigue": request.form.get("fatigue", "non"),
+        "sommeil": force_int(request.form.get("sommeil"))
+    }
+
+    score, verdict, critiques = auditer_coherence(data)
+    res_fatigue = predire_fatigue(data['age'], data['revenu'], data['etudiant'], data['travail'], score)
+
+    # Sauvegarde
     try:
-        # SECURITÉ : Conversion propre des nombres pour éviter l'erreur "Vérifiez vos saisies"
-        def clean_int(val):
-            try:
-                if not val: return 0
-                return int(float(str(val).replace(',', '.')))
-            except:
-                return 0
-
-        data = {
-            "nom": request.form.get("nom", "Anonyme"),
-            "age": clean_int(request.form.get("age")),
-            "pays": request.form.get("pays", "Non précisé"),
-            "etudiant": request.form.get("etudiant", "non"),
-            "niveau": request.form.get("niveau", "aucun"),
-            "travail": request.form.get("travail", "non"),
-            "revenu": clean_int(request.form.get("revenu")),
-            "fatigue": request.form.get("fatigue", "non"),
-            "sommeil": clean_int(request.form.get("sommeil"))
-        }
-
-        score, verdict, critiques = auditer_coherence(data)
-        res_fatigue = predire_fatigue(data['age'], data['revenu'], data['etudiant'], data['travail'], score)
-
         conn = get_db_connection()
         with conn:
             conn.execute("""INSERT INTO collectes 
@@ -82,13 +109,11 @@ def analyse():
                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
                 (data['nom'], data['age'], data['pays'], data['etudiant'], data['niveau'], data['travail'], 
                  data['revenu'], data['fatigue'], data['sommeil'], score, verdict, res_fatigue))
-        
-        return render_template("result.html", nom=data['nom'], score=score, verdict=verdict, 
-                               niveau_fatigue=res_fatigue, remarques=critiques, couleur="blue")
-    except Exception as e:
-        print(f"ERREUR : {e}")
-        flash("Une erreur est survenue lors du traitement.")
-        return redirect(url_for('home'))
+        conn.close()
+    except:
+        pass
+
+    return render_template("result.html", nom=data['nom'], score=score, verdict=verdict, remarques=critiques, niveau_fatigue=res_fatigue)
 
 @app.route('/historique')
 def historique():
@@ -96,20 +121,10 @@ def historique():
         conn = get_db_connection()
         rows = conn.execute('SELECT * FROM collectes ORDER BY date_saisie DESC').fetchall()
         conn.close()
-        
         total = len(rows)
-        if total > 0:
-            age_m = round(sum(r['age'] for r in rows)/total)
-            rev_m = round(sum(r['revenu'] for r in rows)/total)
-            etud_p = round((sum(1 for r in rows if r['etudiant'] == 'oui')/total)*100)
-        else:
-            age_m, rev_m, etud_p = 0, 0, 0
-
-        return render_template('dashboard.html', logs=rows, total=total, 
-                               age_moyen=age_m, revenu_moyen=rev_m, pourcentage_etudiants=etud_p)
-    except Exception as e:
-        print(f"ERREUR ARCHIVES : {e}")
-        return "Erreur lors de l'accès aux archives. Veuillez d'abord valider une expertise."
+        return render_template('dashboard.html', logs=rows, total=total)
+    except:
+        return "Faites d'abord un test pour initialiser les archives ! 🌸"
 
 if __name__ == '__main__':
     init_db()
