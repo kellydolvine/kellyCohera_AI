@@ -1,95 +1,82 @@
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* Retour aux couleurs claires avec fleurs en fond */
-    background-color: #fff9fb;
-    background-image: url('https://www.transparenttextures.com/patterns/floral-paper.png');
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
     color: #333;
-    /* On agrandit l'écriture globale */
-    font-size: 18px; 
 }
 
 .navbar {
+    background-color: #f8f9fa;
+    padding: 15px 5%;
+    border-bottom: 1px solid #ddd;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ffffff;
-    padding: 20px 5%;
-    border-bottom: 2px solid #ffcada;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-.navbar .logo { 
-    font-weight: bold; 
-    font-size: 1.6rem; 
-    color: #d63384; 
+.navbar .logo {
+    font-weight: bold;
+    color: #d63384;
 }
 
-.navbar a { 
-    text-decoration: none; 
-    color: #d63384; 
-    margin-left: 25px; 
-    font-weight: 600;
+.navbar a {
+    text-decoration: none;
+    color: #333;
+    margin-left: 15px;
 }
 
-.container { 
-    max-width: 900px; 
-    margin: 50px auto; 
-    padding: 20px; 
+.container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
 }
 
-/* Formulaire clair et large */
 form, .card {
-    background: white;
-    padding: 50px;
-    border-radius: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    border: 1px solid #ffeef2;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
 }
 
-h1 { font-size: 2.2rem; color: #d63384; text-align: center; }
+h1 {
+    color: #d63384;
+    text-align: center;
+}
 
-label { 
-    display: block; 
-    margin-top: 20px; 
-    font-weight: bold; 
-    color: #555;
-    font-size: 1.1rem;
+label {
+    display: block;
+    margin-top: 10px;
 }
 
 input, select {
     width: 100%;
-    padding: 15px;
-    margin-top: 10px;
-    border-radius: 12px;
-    border: 1px solid #ffcada;
-    font-size: 1.1rem; /* Écriture plus grande */
+    padding: 8px;
+    margin-top: 5px;
     box-sizing: border-box;
 }
 
-/* Boutons plus gros et lisibles */
 button {
     width: 100%;
-    padding: 20px;
+    padding: 10px;
     background-color: #d63384;
     color: white;
     border: none;
-    border-radius: 15px;
-    font-size: 1.3rem;
-    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 20px;
     cursor: pointer;
-    margin-top: 30px;
-    transition: 0.3s;
 }
 
-button:hover { background-color: #b92a6e; transform: scale(1.02); }
+button:hover {
+    background-color: #c2126d;
+}
 
-/* Table des archives claire */
 .styled-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    font-size: 1.1rem;
 }
-.styled-table thead { background-color: #d63384; color: white; }
-.styled-table th, .styled-table td { padding: 18px; text-align: left; border-bottom: 1px solid #eee; }
+
+.styled-table th, .styled-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
