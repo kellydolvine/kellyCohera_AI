@@ -1,41 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Résultat - KellyCohera_AI</title>
+    <title>Résultat</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">KellyCohera_AI 🌸</div>
-        <div><a href="/">Accueil</a><a href="/historique">Archives</a></div>
-    </nav>
-
     <div class="container">
         <div class="card">
-            <h1>Rapport d'Analyse</h1>
-            <p style="font-size: 1.4rem; text-align: center;">Expertise pour : <strong>{{ nom }}</strong></p>
-
-            <div style="text-align: center; margin: 40px 0;">
-                <div style="font-size: 5rem; font-weight: bold; color: #d63384;">{{ score }}%</div>
-                <div style="font-size: 2rem; color: #555;">Verdict : {{ verdict }}</div>
-            </div>
-
-            <div style="background: #fff0f5; padding: 30px; border-radius: 15px; font-size: 1.2rem;">
-                <h3 style="color: #d63384;">Observations :</h3>
-                {% for r in remarques %}
-                <p>• {{ r }}</p>
-                {% endfor %}
-            </div>
-
-            <p style="margin-top: 25px; font-size: 1.3rem; text-align: center;">
-                <strong>Fatigue détectée :</strong> {{ niveau_fatigue }}
-            </p>
-
-            <div style="display: flex; gap: 20px; margin-top: 40px;">
-                <button onclick="window.location.href='/'" style="background-color: #6c757d;">🏠 REVENIR À L'ACCUEIL</button>
-                <button onclick="window.location.href='/historique'">📊 VOIR LES ARCHIVES</button>
-            </div>
+            <h1>Résultat pour {{ nom }}</h1>
+            <p>Score de cohérence : {{ score }}%</p>
+            <p>Verdict : {{ verdict }}</p>
+            <p>Analyse de fatigue : {{ niveau_fatigue }}</p>
+            <button onclick="window.location.href='/'">Recommencer</button>
         </div>
     </div>
 </body>

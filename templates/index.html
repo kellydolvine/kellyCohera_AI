@@ -1,43 +1,31 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>KellyCohera_AI - Accueil</title>
+    <title>KellyCohera_AI</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">KellyCohera_AI 🌸</div>
-        <div>
-            <a href="/">Accueil</a>
-            <a href="/historique">Archives</a>
-        </div>
+        <div class="logo">KellyCohera_AI</div>
+        <div><a href="/">Accueil</a> <a href="/historique">Archives</a></div>
     </nav>
-
     <div class="container">
+        <h1>Analyse de Cohérence</h1>
         <form action="/analyse" method="POST">
-            <h1>🌸 Analyse de Cohérence 🌸</h1>
-            <p style="text-align: center; font-size: 1.2rem;">Bienvenue Kelly ! Prête pour l'audit ?</p>
-            
-            <label>Votre Nom</label>
+            <label>Nom</label>
             <input type="text" name="nom" required>
-
             <label>Âge</label>
             <input type="number" name="age" required>
-
-            <label>Revenu Mensuel (€)</label>
+            <label>Revenu Mensuel</label>
             <input type="number" name="revenu" required>
-
-            <label>Sommeil (heures)</label>
+            <label>Heures de sommeil</label>
             <input type="number" name="sommeil" required>
-
-            <label>Êtes-vous étudiant(e) ?</label>
+            <label>Étudiant ?</label>
             <select name="etudiant">
                 <option value="oui">Oui</option>
                 <option value="non">Non</option>
             </select>
-
-            <button type="submit">LANCER L'EXPERTISE 🚀</button>
+            <button type="submit">Analyser</button>
         </form>
     </div>
 </body>
