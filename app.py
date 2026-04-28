@@ -6,6 +6,7 @@ app = Flask(__name__)
 app.secret_key = "K3lly_C0h3r4_4I_U1tr4_S3cur3_2026!#" 
 DB_PATH = "database.db"
 
+# --- CONFIGURATION DB ---
 def get_db_connection():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -22,7 +23,7 @@ def init_db():
             verdict TEXT, fatigue_ia TEXT, date_saisie TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )""")
 
-# --- LOGIQUE D'AUDIT ---
+# --- LOGIQUE D'AUDIT (La Rigueur) ---
 def auditer_coherence(data):
     score = 100
     alertes = []
@@ -33,7 +34,7 @@ def auditer_coherence(data):
 
     if data['travail'] == "non" and data['revenu'] > 100000:
         score -= 50
-        alertes.append(f"{data['revenu']} FCFA sans bosser ? Tu as trouvé un code de triche dans la vraie vie ? 💸🤣")
+        alertes.append(f"{data['revenu']} FCFA sans bosser ? Tu triches avec la réalité là ! 💸🤣")
 
     if data['niveau'] == "master" and data['age'] < 20:
         score -= 60
@@ -41,12 +42,11 @@ def auditer_coherence(data):
 
     if data['travail'] == "oui" and data['age'] < 14:
         score -= 80
-        alertes.append("Travailler avant 14 ans... C'est non. KellyCohera ne valide pas ! 🚔💀")
+        alertes.append("Travailler avant 14 ans... KellyCohera ne valide pas ! 🚔💀")
 
-    # Verdicts et Punchlines
     if score == 100:
         v, c = "Profil Nickel ✨", "#2ecc71"
-        note = f"Wow {data['nom']} ! Quelqu'un d'honnête, ça fait du bien au moral. 🌸😇"
+        note = f"Wow {data['nom']} ! Quelqu'un d'honnête, ça fait du bien. 🌸😇"
     elif score >= 60:
         v, c = "Profil Louche 🤨", "#f1c40f"
         note = f"On sent l'effort de mytho, {data['nom']}, mais je vois clair dans ton jeu ! 😂🤏"
@@ -54,19 +54,23 @@ def auditer_coherence(data):
         v, c = "Fiction Totale 🏆🔥", "#e74c3c"
         insultes = [
             f"Franchement {data['nom']}, ton intelligence est en option aujourd'hui ? 💀🤣",
-            f"Même un enfant de 5 ans mentirait mieux que ça. Gênant... 🤦‍♂️🤡",
+            f"Même un enfant de 5 ans mentirait mieux que ça. 🤦‍♂️🤡",
             f"Félicitations ! Record du monde du n'importe quoi battu. 🎖️😭"
         ]
         note = random.choice(insultes)
 
     return max(0, score), v, c, note, alertes
 
+# --- 🚀 TOUTES LES ROUTES (Enfin !) ---
+
 @app.route('/')
 def home():
+    """Route pour la page d'accueil (Le Test)"""
     return render_template("index.html")
 
 @app.route('/analyse', methods=['POST'])
 def analyse():
+    """Route pour traiter les données et afficher le résultat"""
     try:
         data = {
             "nom": request.form.get("nom", "Inconnu").strip()[:25],
@@ -77,22 +81,38 @@ def analyse():
             "niveau": request.form.get("niveau", "aucun").lower()
         }
     except ValueError:
-        flash("Mets des chiffres là où il faut, ne m'énerve pas ! 🙄💢")
+        flash("Mets des chiffres valides, s'il te plaît ! 🙄💢")
         return redirect(url_for('home'))
 
+    # Analyse
     score, verdict, couleur, note, critiques = auditer_coherence(data)
+    
+    # Appel IA (Attention au 5ème argument 'score' !)
     fatigue = predire_fatigue(data['age'], data['revenu'], data['etudiant'], data['travail'], score)
 
+    # Sauvegarde DB
     conn = get_db_connection()
     with conn:
-        conn.execute("INSERT INTO collectes (nom, age, etudiant, niveau, travail, revenu, score_coherence, verdict, fatigue_ia) VALUES (?,?,?,?,?,?,?,?,?)",
-                     (data['nom'], data['age'], data['etudiant'], data['niveau'], data['travail'], data['revenu'], score, verdict, fatigue))
+        conn.execute("""INSERT INTO collectes 
+            (nom, age, etudiant, niveau, travail, revenu, score_coherence, verdict, fatigue_ia) 
+            VALUES (?,?,?,?,?,?,?,?,?)""",
+            (data['nom'], data['age'], data['etudiant'], data['niveau'], 
+             data['travail'], data['revenu'], score, verdict, fatigue))
 
-    blagues = ["☀️ Belle journée !", "🌸 KellyCohera t'observe...", "✨ Reste authentique !"]
+    blagues = ["🌸 KellyCohera t'observe...", "✨ Reste authentique !", "🕶️ Analyse en cours..."]
     
-    return render_template("result.html", nom=data['nom'], score=score, fatigue=fatigue, 
+    return render_template("result.html", 
+                           nom=data['nom'], score=score, fatigue=fatigue, 
                            verdict=verdict, critiques=critiques, couleur=couleur, 
                            note_expert=note, blague=random.choice(blagues))
+
+@app.route('/historique')
+def historique():
+    """Route pour voir les archives"""
+    conn = get_db_connection()
+    collectes = conn.execute('SELECT * FROM collectes ORDER BY date_saisie DESC').fetchall()
+    conn.close()
+    return render_template('historique.html', collectes=collectes)
 
 if __name__ == '__main__':
     init_db()
