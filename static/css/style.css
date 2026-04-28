@@ -1,93 +1,88 @@
 :root {
-    --midnight: #0f172a;    /* Bleu nuit profond */
-    --deep-pink: #be185d;   /* Rose foncé élégant */
-    --hot-pink: #f472b6;    /* Rose plus clair pour les détails */
-    --soft-bg: #f8fafc;
+    --midnight: #0f172a;    /* Bleu nuit pour la profondeur */
+    --flower-pink: #fda4af; /* Rose fleur doux */
+    --flower-purple: #ddd6fe; /* Lavande */
+    --sage-green: #678c7f;  /* Vert feuille */
+    --off-white: #f8fafc;
 }
 
 body {
     margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: var(--soft-bg);
-    color: var(--midnight);
+    font-family: 'Georgia', serif; /* Plus élégant */
+    background: var(--midnight);
+    /* Motif floral discret en fond */
+    background-image: url('https://www.transparenttextures.com/patterns/floral-paper.png');
+    color: #334155;
+    min-height: 100vh;
 }
 
-/* NAVBAR : Fond nuit, texte rose */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--midnight);
-    padding: 15px 5%;
-    border-bottom: 3px solid var(--deep-pink);
+    background: rgba(15, 23, 42, 0.9);
+    padding: 20px 5%;
+    border-bottom: 2px solid var(--flower-pink);
+    backdrop-filter: blur(10px);
 }
 
 .navbar .logo { 
-    font-weight: 900; 
-    color: var(--deep-pink); 
-    font-size: 1.5rem;
-    letter-spacing: 1px;
+    font-weight: bold; 
+    color: var(--flower-pink); 
+    font-size: 1.6rem;
 }
 
-.navbar a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; }
-.navbar a:hover { color: var(--hot-pink); }
+.navbar a { color: white; text-decoration: none; margin-left: 20px; font-size: 0.9rem; transition: 0.3s; }
+.navbar a:hover { color: var(--flower-purple); }
 
-/* CONTAINER AÉRÉ */
 .container { max-width: 800px; margin: 40px auto; padding: 20px; }
 
-/* FORMULAIRE & CARDS */
+/* Formulaire Blanc Aéré */
 form, .card {
     background: white;
-    padding: 40px;
-    border-radius: 25px;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
-    border: 1px solid #f1f5f9;
+    padding: 45px;
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    border: 1px solid var(--flower-purple);
 }
 
-label { font-weight: bold; color: var(--midnight); display: block; margin-bottom: 5px; }
+h1 { color: var(--midnight); text-align: center; margin-bottom: 30px; }
+
+label { font-weight: bold; color: var(--sage-green); display: block; margin-top: 15px; }
 
 input, select {
     width: 100%;
     padding: 14px;
-    margin-bottom: 25px;
+    margin-top: 8px;
     border-radius: 12px;
     border: 2px solid #f1f5f9;
     background: #fdfdfd;
     box-sizing: border-box;
+    font-size: 1rem;
 }
 
-/* BOUTON ROSE FONCÉ */
+/* Bouton Floral */
 button {
     width: 100%;
     padding: 18px;
-    background: var(--deep-pink);
-    color: white;
+    background: linear-gradient(135deg, var(--flower-pink), var(--flower-purple));
+    color: var(--midnight);
     border: none;
     border-radius: 15px;
-    font-weight: 800;
-    font-size: 1rem;
+    font-weight: bold;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 4px 15px rgba(190, 24, 93, 0.3);
+    transition: 0.4s;
+    margin-top: 30px;
+    box-shadow: 0 10px 20px rgba(253, 164, 175, 0.3);
 }
 
 button:hover {
-    background: #9d174d;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(190, 24, 93, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(253, 164, 175, 0.4);
 }
 
-/* RÉSULTAT : Dégradé Bleu Nuit et Rose */
-.result-box {
-    background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
-    color: white;
-    padding: 45px;
-    border-radius: 30px;
-    border-right: 8px solid var(--deep-pink);
-    text-align: center;
-}
-
-/* ARCHIVES : Table Lumineuse */
+/* Tableau Archives */
 .styled-table {
     width: 100%;
     border-collapse: collapse;
@@ -95,7 +90,6 @@ button:hover {
     border-radius: 20px;
     overflow: hidden;
 }
-.styled-table thead { background: var(--midnight); color: white; }
-.styled-table th { padding: 20px; border-bottom: 3px solid var(--deep-pink); }
-.styled-table td { padding: 18px; border-bottom: 1px solid #f1f5f9; }
-.styled-table tr:hover { background: #fff1f2; }
+.styled-table thead { background: var(--flower-purple); color: var(--midnight); }
+.styled-table th, .styled-table td { padding: 20px; text-align: left; }
+.styled-table tr:nth-child(even) { background: #faf5ff; }

@@ -2,55 +2,39 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil - KellyCohera_AI 🌸</title>
+    <title>Analyse Douce - KellyCohera_AI</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body style="background-color: #fff5f7;"> <nav class="navbar">
+<body>
+    <nav class="navbar">
         <div class="logo">KellyCohera_AI 🌸</div>
-        <div class="links">
-            <a href="/">Accueil</a>
-            <a href="/historique">Archives</a>
-        </div>
+        <div><a href="/">Accueil</a><a href="/historique">Archives</a></div>
     </nav>
 
     <div class="container">
-        <h1 style="color: #d63384;">🌸 Bienvenue sur KellyCohera_AI 🌸</h1>
-        <p style="text-align: center; font-style: italic; color: #6c757d;">
-            L'IA qui prend soin de vous et analyse votre fatigue avec douceur.
-        </p>
-        
-        <form action="/analyse" method="POST" style="border: 2px solid #f8d7da; border-radius: 20px; padding: 30px; background: white;">
-            <label style="color: #d63384; font-weight: bold;">Votre joli nom :</label>
+        <form action="/analyse" method="POST">
+            <h1>🌸 Expertise de Cohérence 🌿</h1>
+            <p style="text-align: center; font-style: italic; color: #64748b;">Laissez l'IA analyser votre fatigue avec douceur.</p>
+
+            <label>Votre joli nom</label>
             <input type="text" name="nom" required placeholder="Ex: Kelly">
 
-            <label style="color: #d63384; font-weight: bold;">Votre âge :</label>
+            <label>Votre âge</label>
             <input type="number" name="age" required>
 
-            <label style="color: #d63384; font-weight: bold;">Votre pays :</label>
-            <input type="text" name="pays" required>
-
-            <label style="color: #d63384; font-weight: bold;">Êtes-vous étudiant(e) ? 📚</label>
-            <select name="etudiant">
-                <option value="oui">Oui</option>
-                <option value="non">Non</option>
-            </select>
-
-            <label style="color: #d63384; font-weight: bold;">Revenu mensuel (estimation) :</label>
+            <label>Revenu Mensuel (€)</label>
             <input type="number" name="revenu" required>
 
-            <label style="color: #d63384; font-weight: bold;">Heures de sommeil (dernière nuit) : 🌙</label>
+            <label>Heures de sommeil (dernière nuit)</label>
             <input type="number" name="sommeil" required>
 
-            <label style="color: #d63384; font-weight: bold;">Ressentez-vous de la fatigue ?</label>
-            <select name="fatigue">
-                <option value="oui">Oui, un peu</option>
-                <option value="non">Pas du tout !</option>
+            <label>Étudiant(e) ?</label>
+            <select name="etudiant">
+                <option value="oui">Oui, je cultive mon savoir</option>
+                <option value="non">Non, je suis sur une autre voie</option>
             </select>
 
-            <button type="submit" style="background: #d63384; color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 20px;">
-                🌸 LANCER L'EXPERTISE 🌸
-            </button>
+            <button type="submit">🌸 LANCER L'EXPERTISE</button>
         </form>
     </div>
 </body>
