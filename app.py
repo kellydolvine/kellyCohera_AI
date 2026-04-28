@@ -12,9 +12,11 @@ def get_db_connection():
     return conn
 
 def init_db():
-    """Supprime et recrée la base pour être sûr que les colonnes sont là."""
+    """Initialise la base de données avec la structure correcte."""
     conn = get_db_connection()
     with conn:
+        # On ne supprime la table que si on veut vraiment repartir de zéro
+        # Pour cette fois, on s'assure qu'elle est propre
         conn.execute("DROP TABLE IF EXISTS collectes")
         conn.execute("""
         CREATE TABLE collectes (
@@ -32,9 +34,9 @@ def auditer_coherence(data):
     if data['travail'] == "non" and data['revenu'] > 150000:
         score -= 40
         alertes.append("Revenus élevés sans emploi.")
-    if data['age'] < 16 and data['niveau'] != "aucun":
+    if data['age'] < 16 and data['niveau'] not in ["aucun", "primaire"]:
         score -= 50
-        alertes.append("Âge non cohérent avec le niveau.")
+        alertes.append("Âge incohérent avec le niveau.")
     verdict = "Fiction 🏆" if score < 60 else "Suspect 🤨" if score < 90 else "Sincère ✨"
     return max(0, score), verdict, alertes
 
@@ -50,16 +52,24 @@ def home():
 @app.route('/analyse', methods=['POST'])
 def analyse():
     try:
+        # SECURITÉ : Conversion propre des nombres pour éviter l'erreur "Vérifiez vos saisies"
+        def clean_int(val):
+            try:
+                if not val: return 0
+                return int(float(str(val).replace(',', '.')))
+            except:
+                return 0
+
         data = {
             "nom": request.form.get("nom", "Anonyme"),
-            "age": int(request.form.get("age") or 0),
+            "age": clean_int(request.form.get("age")),
             "pays": request.form.get("pays", "Non précisé"),
             "etudiant": request.form.get("etudiant", "non"),
             "niveau": request.form.get("niveau", "aucun"),
             "travail": request.form.get("travail", "non"),
-            "revenu": int(request.form.get("revenu") or 0),
+            "revenu": clean_int(request.form.get("revenu")),
             "fatigue": request.form.get("fatigue", "non"),
-            "sommeil": int(request.form.get("sommeil") or 0)
+            "sommeil": clean_int(request.form.get("sommeil"))
         }
 
         score, verdict, critiques = auditer_coherence(data)
@@ -74,9 +84,10 @@ def analyse():
                  data['revenu'], data['fatigue'], data['sommeil'], score, verdict, res_fatigue))
         
         return render_template("result.html", nom=data['nom'], score=score, verdict=verdict, 
-                               niveau_fatigue=res_fatigue, remarques=[res_fatigue], couleur="blue")
+                               niveau_fatigue=res_fatigue, remarques=critiques, couleur="blue")
     except Exception as e:
-        flash(f"Erreur : {e}")
+        print(f"ERREUR : {e}")
+        flash("Une erreur est survenue lors du traitement.")
         return redirect(url_for('home'))
 
 @app.route('/historique')
@@ -87,7 +98,6 @@ def historique():
         conn.close()
         
         total = len(rows)
-        # Sécurité pour éviter la division par zéro si la base est vide
         if total > 0:
             age_m = round(sum(r['age'] for r in rows)/total)
             rev_m = round(sum(r['revenu'] for r in rows)/total)
@@ -97,8 +107,9 @@ def historique():
 
         return render_template('dashboard.html', logs=rows, total=total, 
                                age_moyen=age_m, revenu_moyen=rev_m, pourcentage_etudiants=etud_p)
-    except:
-        return "Erreur lors de l'accès aux archives. Vérifiez que la base de données est initialisée."
+    except Exception as e:
+        print(f"ERREUR ARCHIVES : {e}")
+        return "Erreur lors de l'accès aux archives. Veuillez d'abord valider une expertise."
 
 if __name__ == '__main__':
     init_db()
