@@ -3,52 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analyse KellyCohera AI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Verdict de l'IA - KellyCohera</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center p-4">
+<body>
 
-    <div class="max-w-xl w-full bg-gray-800 rounded-3xl shadow-2xl border border-gray-700 mt-10 overflow-hidden">
-        <div class="bg-gradient-to-r from-purple-700 to-indigo-600 p-6 text-center">
-            <h1 class="text-2xl font-black uppercase tracking-tighter">Résultats de l'Expertise</h1>
-            <p class="text-indigo-200 text-sm">Dossier : {{ nom }}</p>
+    <nav class="navbar">
+        <div class="logo">KELLYCOHERA <span style="color:white">AI</span></div>
+        <div class="links">
+            <a href="{{ url_for('home') }}">Accueil</a>
+            <a href="{{ url_for('historique') }}">Archives</a>
         </div>
+    </nav>
 
-        <div class="p-8">
-            <div class="flex flex-col items-center mb-8">
-                <div class="w-24 h-24 rounded-full border-4 {{ 'border-green-500' if score > 80 else 'border-orange-500' }} flex items-center justify-center mb-2">
-                    <span class="text-3xl font-bold">{{ score }}%</span>
+    <div class="container">
+        <div class="card">
+            <h1>Rapport d'Expertise</h1>
+            <p style="text-align: center; color: #94a3b8; margin-bottom: 30px;">
+                Analyse terminée pour le sujet : <strong>{{ nom }}</strong>
+            </p>
+
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div style="display: inline-block; padding: 20px 40px; border-radius: 20px; border: 2px solid var(--accent); background: rgba(34, 211, 238, 0.05);">
+                    <h2 style="font-size: 50px; margin: 0; color: var(--accent);">{{ score }}%</h2>
+                    <p style="margin: 0; font-weight: bold; text-transform: uppercase; font-size: 14px;">{{ verdict }}</p>
                 </div>
-                <p class="text-gray-400 text-xs uppercase tracking-widest">Indice de Sincérité</p>
-                <h2 class="text-2xl font-bold mt-1">{{ verdict }}</h2>
             </div>
 
-            <div class="space-y-4 mb-8">
-                <h3 class="text-sm font-semibold text-purple-400 uppercase tracking-wider italic">L'IA murmure...</h3>
-                {% for r in remarques %}
-                <div class="bg-gray-900 border-l-4 border-purple-600 p-4 rounded-r-xl shadow-inner">
-                    <p class="text-sm text-gray-300 font-medium">" {{ r }} "</p>
+            <div style="margin-bottom: 30px;">
+                <h3 style="font-size: 16px; margin-bottom: 15px; color: var(--accent);">🧐 L'analyse de KellyCohera :</h3>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    {% for r in remarques %}
+                    <div style="background: #0f172a; padding: 15px; border-radius: 12px; border-left: 4px solid var(--accent); font-style: italic;">
+                        " {{ r }} "
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
 
-            <div class="bg-indigo-900/30 p-5 rounded-2xl border border-indigo-500/30 mb-8">
-                <h4 class="text-xs text-indigo-400 uppercase mb-1">Diagnostic Fatigue :</h4>
-                <p class="text-lg leading-tight">{{ niveau_fatigue }}</p>
+            <div style="background: #1e293b; padding: 20px; border-radius: 15px; border: 1px solid #334155; margin-bottom: 40px;">
+                <p style="color: #64748b; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 5px;">Prédiction de Fatigue :</p>
+                <p style="font-size: 16px; margin: 0; color: #f1f5f9;">{{ niveau_fatigue }}</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
-                <a href="{{ url_for('home') }}" class="bg-gray-700 hover:bg-gray-600 text-center py-4 rounded-xl font-bold transition duration-300">
-                    🔄 Recommencer
+            <div style="display: flex; gap: 20px;">
+                <a href="{{ url_for('home') }}" style="flex: 1; text-decoration: none;">
+                    <button type="button" style="background: #334155; color: white;">
+                        🔄 RECOMMENCER
+                    </button>
                 </a>
-                <a href="{{ url_for('historique') }}" class="bg-indigo-600 hover:bg-indigo-500 text-center py-4 rounded-xl font-bold transition duration-300 shadow-lg shadow-indigo-500/20">
-                    📊 Archives
+                
+                <a href="{{ url_for('historique') }}" style="flex: 1; text-decoration: none;">
+                    <button type="button">
+                        📊 ARCHIVES
+                    </button>
                 </a>
             </div>
         </div>
     </div>
 
-    <p class="mt-10 text-gray-600 text-xs tracking-tighter italic">Propulsé par KellyCohera Engine v2.0 - 2026</p>
+    <footer style="text-align: center; margin-top: 50px; color: #475569; font-size: 11px; letter-spacing: 2px; text-transform: uppercase;">
+        KellyCohera AI System v2.0 // 2026
+    </footer>
 
 </body>
 </html>

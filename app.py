@@ -1,10 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for
 from utils.ai_model import predire_fatigue
 import sqlite3, os, json
 
 app = Flask(__name__)
-app.secret_key = "K3lly_C0h3r4_AI_2026_Secure" 
-DB_PATH = "database.db"
+app.secret_key = "Kelly_DeepSpace_2026"
+
+# Chemin absolu pour la base de données (Crucial pour Render)
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+DB_PATH = os.path.join(BASE_DIR, "database.db")
 
 def get_db_connection():
     conn = sqlite3.connect(DB_PATH)
@@ -12,7 +15,7 @@ def get_db_connection():
     return conn
 
 def init_db():
-    """Initialise la structure si elle n'existe pas."""
+    """Initialise la table si elle n'existe pas."""
     conn = get_db_connection()
     with conn:
         conn.execute("""
@@ -26,47 +29,25 @@ def init_db():
     conn.close()
 
 def auditer_coherence(data):
-    """Analyse rigoureuse et taquine des données saisies."""
+    """Analyse rigoureuse et taquine."""
     score = 100
     remarques = []
     
-    # 1. Analyse de l'âge
-    if data['age'] <= 0:
-        score -= 50
-        remarques.append("0 an ? Tu es un concept abstrait ou un futur génie pas encore né ? 🐣")
-    elif data['age'] > 115:
+    if data['age'] <= 0 or data['age'] > 110:
         score -= 40
-        remarques.append(f"{data['age']} ans ? Respect pour ta longévité, ou ton imagination débordante ! 🦖")
-
-    # 2. Analyse Revenu vs Travail
-    if data['travail'] == "non" and data['revenu'] > 0:
-        if data['revenu'] > 100000:
-            score -= 40
-            remarques.append("Pas de job mais un revenu de PDG... On blanchit de l'argent ou on a un oncle en Amérique ? 💸")
-        else:
-            remarques.append("Pas d'emploi mais des revenus ? La vie de rentier a l'air douce ! 🍷")
+        remarques.append(f"Âge de {data['age']} ans ? L'immortalité n'est pas encore supportée par nos serveurs. 🛸")
     
-    # 3. Analyse Sommeil
-    if data['sommeil'] < 2:
+    if data['travail'] == "non" and data['revenu'] > 100000:
         score -= 30
-        remarques.append("Moins de 2h de sommeil... Tu es un robot ou tu vis sur une autre planète ? 🧛")
-    elif data['sommeil'] > 18:
-        score -= 20
-        remarques.append("18h de dodo ? C'est une expertise fatigue, pas une étude sur l'hibernation des ours ! 🐻")
+        remarques.append("Un revenu de ministre sans emploi ? On a trouvé le compte caché ! 💸")
+    
+    if data['sommeil'] < 3 or data['sommeil'] > 18:
+        score -= 25
+        remarques.append("Ton cycle de sommeil défie les lois de la biologie humaine. 🌌")
 
-    # 4. Analyse Études vs Âge
-    if data['etudiant'] == "oui" and data['age'] < 6:
-        score -= 50
-        remarques.append("Déjà étudiant à cet âge ? Bébé prodige ou petite erreur de saisie ? 👶")
-
-    # Verdict final
-    if score >= 90:
-        verdict = "Sincère ✨"
-    elif score >= 60:
-        verdict = "Suspect 🤨"
-    else:
-        verdict = "Mythomane 🏆"
-        
+    if not remarques: remarques.append("Profil d'une honnêteté presque déconcertante. 🧐")
+    
+    verdict = "Fiction 🏆" if score < 60 else "Suspect 🤨" if score < 90 else "Sincère ✨"
     return score, verdict, remarques
 
 @app.route('/')
@@ -80,15 +61,14 @@ def home():
 
 @app.route('/analyse', methods=['POST'])
 def analyse():
-    # Conversion sécurisée sans plantage
     def force_int(val):
         try: return int(float(str(val).strip()))
         except: return 0
 
     data = {
-        "nom": request.form.get("nom", "Anonyme"),
+        "nom": request.form.get("nom", "Explorateur"),
         "age": force_int(request.form.get("age")),
-        "pays": request.form.get("pays", "Inconnu"),
+        "pays": request.form.get("pays", "Terre"),
         "etudiant": request.form.get("etudiant", "non"),
         "niveau": request.form.get("niveau", "aucun"),
         "travail": request.form.get("travail", "non"),
@@ -100,7 +80,7 @@ def analyse():
     score, verdict, critiques = auditer_coherence(data)
     res_fatigue = predire_fatigue(data['age'], data['revenu'], data['etudiant'], data['travail'], score)
 
-    # Sauvegarde
+    # Sauvegarde SQL
     try:
         conn = get_db_connection()
         with conn:
@@ -109,22 +89,25 @@ def analyse():
                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
                 (data['nom'], data['age'], data['pays'], data['etudiant'], data['niveau'], data['travail'], 
                  data['revenu'], data['fatigue'], data['sommeil'], score, verdict, res_fatigue))
-        conn.close()
-    except:
-        pass
+    except Exception as e:
+        print(f"Erreur DB : {e}")
 
     return render_template("result.html", nom=data['nom'], score=score, verdict=verdict, remarques=critiques, niveau_fatigue=res_fatigue)
 
 @app.route('/historique')
 def historique():
     try:
+        if not os.path.exists(DB_PATH): return render_template('dashboard.html', logs=[], total=0, age_moyen=0)
+        
         conn = get_db_connection()
         rows = conn.execute('SELECT * FROM collectes ORDER BY date_saisie DESC').fetchall()
         conn.close()
+        
         total = len(rows)
-        return render_template('dashboard.html', logs=rows, total=total)
+        age_m = round(sum(r['age'] for r in rows)/total) if total > 0 else 0
+        return render_template('dashboard.html', logs=rows, total=total, age_moyen=age_m)
     except:
-        return "Faites d'abord un test pour initialiser les archives ! 🌸"
+        return "Erreur d'accès aux archives. Lancez un test d'abord ! 🚀"
 
 if __name__ == '__main__':
     init_db()
