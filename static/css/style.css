@@ -1,70 +1,87 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff5f8; /* Rose très pâle */
     margin: 0;
     padding: 0;
 }
 
 .navbar {
-    background-color: #f8f9fa;
-    padding: 15px 5%;
-    border-bottom: 1px solid #ddd;
+    background-color: #ffffff;
+    padding: 15px 10%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .navbar .logo {
+    font-size: 1.5rem;
     font-weight: bold;
     color: #d63384;
 }
 
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    margin-left: 20px;
+    font-weight: 600;
+}
+
 .container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    max-width: 500px;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
 h1 {
     color: #d63384;
     text-align: center;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
 }
 
 label {
     display: block;
-    margin-top: 15px;
+    margin-bottom: 8px;
     font-weight: bold;
+    color: #444;
 }
 
 input, select {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    display: block;
-    box-sizing: border-box; /* Force la largeur totale */
+    padding: 12px;
+    border: 2px solid #f0f0f0;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: #d63384;
+    outline: none;
 }
 
 button {
     width: 100%;
-    padding: 12px;
+    padding: 15px;
     background-color: #d63384;
     color: white;
     border: none;
-    border-radius: 5px;
-    margin-top: 20px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
     cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
 }
 
-.styled-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.styled-table th, .styled-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
+button:hover {
+    background-color: #b82a6e;
+    transform: translateY(-2px);
 }
