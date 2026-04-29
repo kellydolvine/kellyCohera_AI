@@ -2,37 +2,57 @@
     --pink-main: #d63384;
     --pink-light: #fbcfe8;
     --blue-soft: #bfdbfe;
-    --white: #ffffff;
+    --white: rgba(255, 255, 255, 0.85);
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, var(--pink-light) 0%, var(--blue-soft) 100%);
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--pink-light) 0%, var(--blue-soft) 100%) !important;
     margin: 0;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Décorations florales */
+.flower {
+    position: fixed;
+    font-size: 2.5rem;
+    z-index: -1;
+    opacity: 0.5;
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+/* Barre de navigation */
 .navbar {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
-    padding: 1rem 10%;
+    padding: 1.2rem 10%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 
 .navbar .logo {
-    font-size: 1.4rem;
-    font-weight: 800;
+    font-size: 1.5rem;
+    font-weight: 900;
     color: var(--pink-main);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
 }
 
 .nav-links a {
     text-decoration: none;
     color: #4b5563;
     margin-left: 20px;
-    font-weight: 600;
+    font-weight: 700;
     transition: 0.3s;
 }
 
@@ -40,58 +60,74 @@ body {
     color: var(--pink-main);
 }
 
+/* Conteneur principal */
 .main-content {
+    flex: 1;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     padding: 40px 20px;
 }
 
+/* Carte Glassmorphism */
 .glass-card {
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--white);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     padding: 40px;
-    border-radius: 30px;
+    border-radius: 35px;
     width: 100%;
-    max-width: 500px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    max-width: 600px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 20px 40px rgba(31, 38, 135, 0.1);
 }
 
-h1 { color: var(--pink-main); text-align: center; margin: 0; }
-.subtitle { text-align: center; color: #6b7280; margin-bottom: 30px; font-size: 0.9rem; }
+h1 { color: var(--pink-main); text-align: center; font-weight: 800; margin-bottom: 10px; }
+.subtitle { text-align: center; color: #6b7280; margin-bottom: 30px; font-size: 0.95rem; }
 
-.input-group { margin-bottom: 15px; }
+/* Formulaire */
+.input-group { margin-bottom: 20px; }
 .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-
-label { display: block; margin-bottom: 5px; font-weight: 600; color: #374151; }
+label { display: block; margin-bottom: 8px; font-weight: 700; color: #374151; font-size: 0.9rem; }
 
 input, select {
     width: 100%;
-    padding: 12px;
-    border: 2px solid #e5e7eb;
-    border-radius: 12px;
-    box-sizing: border-box;
+    padding: 14px;
+    border: 2px solid rgba(209, 213, 219, 0.5);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.5);
     transition: 0.3s;
 }
 
-input:focus { border-color: var(--pink-main); outline: none; }
+input:focus { border-color: var(--pink-main); outline: none; background: white; }
 
 .btn-primary {
     width: 100%;
-    padding: 15px;
+    padding: 16px;
     background: var(--pink-main);
     color: white;
     border: none;
-    border-radius: 12px;
+    border-radius: 15px;
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 800;
     cursor: pointer;
-    margin-top: 20px;
     transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
 }
 
-.btn-primary:hover { background: #b82a6e; transform: translateY(-2px); }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(214, 51, 132, 0.4); }
 
-/* Styles Archives */
-.table-container { overflow-x: auto; margin-top: 20px; }
-.styled-table { width: 100%; border-collapse: collapse; }
-.styled-table th { background: var(--pink-main); color: white; padding: 12px; text-align: left; }
-.styled-table td { padding: 12px; border-bottom: 1px solid #eee; }
+/* Tableaux */
+.table-container { overflow-x: auto; border-radius: 20px; }
+.styled-table { width: 100%; border-collapse: collapse; background: white; }
+.styled-table th { background: var(--pink-main); color: white; padding: 15px; text-align: left; }
+.styled-table td { padding: 15px; border-bottom: 1px solid #f3f4f6; }
+
+/* Badge Score */
+.badge-score {
+    background: var(--pink-light);
+    color: var(--pink-main);
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-weight: 800;
+}

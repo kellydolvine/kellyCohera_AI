@@ -4,56 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KellyCohera_AI 🌸</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            background: linear-gradient(135deg, #fbcfe8 0%, #bfdbfe 100%); /* Rose vers Bleu */
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .flower {
-            position: fixed;
-            font-size: 2.5rem;
-            z-index: -1;
-            opacity: 0.6;
-            pointer-events: none;
-        }
-        .glass {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border-radius: 2.5rem;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="p-4 md:p-8">
-    <!-- Décorations florales rigoureusement placées -->
-    <div class="flower top-5 left-5">🌸</div>
-    <div class="flower top-5 right-5">🌺</div>
-    <div class="flower bottom-5 left-5">🌻</div>
-    <div class="flower bottom-5 right-5">🌷</div>
+<body>
+    <!-- Fleurs décoratives -->
+    <div class="flower" style="top: 10%; left: 5%;">🌸</div>
+    <div class="flower" style="top: 15%; right: 7%;">🌺</div>
+    <div class="flower" style="bottom: 10%; left: 8%;">🌻</div>
+    <div class="flower" style="bottom: 15%; right: 5%;">🌷</div>
 
-    <nav class="max-w-4xl mx-auto glass mb-8 p-6 flex justify-between items-center">
-        <h1 class="text-2xl font-black text-pink-600 tracking-tighter">KellyCohera_AI 🌸</h1>
-        <div class="space-x-6 font-bold text-blue-600">
-            <a href="/" class="hover:text-pink-500 transition-colors">Test</a>
-            <a href="/historique" class="hover:text-pink-500 transition-colors">Archives</a>
+    <nav class="navbar">
+        <div class="logo">KellyCohera_AI 🌸</div>
+        <div class="nav-links">
+            <a href="{{ url_for('index') }}" class="{{ 'active' if request.path == '/' else '' }}">Test</a>
+            <a href="{{ url_for('historique') }}" class="{{ 'active' if request.path == '/historique' else '' }}">Archives</a>
         </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto">
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            {% for message in messages %}
-              <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-r-xl glass shadow-md animate-bounce">
-                {{ message }}
-              </div>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-
+    <div class="main-content">
         {% block content %}{% endblock %}
-    </main>
+    </div>
 </body>
 </html>
