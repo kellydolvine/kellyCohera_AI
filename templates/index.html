@@ -10,46 +10,49 @@
     <nav class="navbar">
         <div class="logo">KellyCohera_AI 🌸</div>
         <div class="nav-links">
-            <a href="/">Accueil</a>
-            <a href="/historique">Archives</a>
+            <a href="/" class="active">Test</a>
+            <a href="/dashboard">Archives</a>
         </div>
     </nav>
 
-    <div class="container">
-        <h1>Analyse de Cohérence</h1>
-        <p style="text-align: center; color: #666; margin-bottom: 20px;">Entrez vos informations pour l'analyse IA</p>
-        
-        <form action="/analyse" method="POST">
-            <div class="form-group">
-                <label>Nom complet</label>
-                <input type="text" name="nom" placeholder="Ex: Kelly Dolvine" required>
-            </div>
+    <div class="main-content">
+        <div class="glass-card">
+            <h1>Analyse de Cohérence</h1>
+            <p class="subtitle">Intelligence Artificielle de Vérification</p>
+            
+            <form action="/analyse" method="POST" class="styled-form">
+                <div class="input-group">
+                    <label>Nom complet</label>
+                    <input type="text" name="nom" placeholder="Ex: Kelly Dolvine" required>
+                </div>
 
-            <div class="form-group">
-                <label>Âge</label>
-                <input type="number" name="age" placeholder="Votre âge" required>
-            </div>
+                <div class="grid-inputs">
+                    <div class="input-group">
+                        <label>Âge</label>
+                        <input type="number" name="age" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Revenu ($)</label>
+                        <input type="number" name="revenu" required>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label>Revenu Mensuel ($)</label>
-                <input type="number" name="revenu" placeholder="Ex: 1500" required>
-            </div>
+                <div class="input-group">
+                    <label>Heures de sommeil</label>
+                    <input type="number" name="sommeil" required>
+                </div>
 
-            <div class="form-group">
-                <label>Heures de sommeil / nuit</label>
-                <input type="number" name="sommeil" placeholder="Ex: 8" required>
-            </div>
+                <div class="input-group">
+                    <label>Statut</label>
+                    <select name="etudiant">
+                        <option value="oui">Étudiant(e)</option>
+                        <option value="non">Professionnel(le)</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label>Êtes-vous étudiant ?</label>
-                <select name="etudiant">
-                    <option value="oui">Oui, je suis étudiant</option>
-                    <option value="non">Non, je travaille</option>
-                </select>
-            </div>
-
-            <button type="submit">Lancer l'analyse 🚀</button>
-        </form>
+                <button type="submit" class="btn-primary">Lancer l'analyse ✨</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

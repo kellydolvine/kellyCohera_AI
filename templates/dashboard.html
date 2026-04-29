@@ -2,38 +2,46 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archives - KellyCohera_AI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">🌸 KellyCohera_AI</div>
-        <div><a href="/">Accueil</a> <a href="/historique">Archives</a></div>
+        <div class="logo">KellyCohera_AI 🌸</div>
+        <div class="nav-links">
+            <a href="/">Test</a>
+            <a href="/dashboard" class="active">Archives</a>
+        </div>
     </nav>
-    <div class="container" style="max-width: 900px;">
-        <h1>Historique des Analyses</h1>
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Score</th>
-                    <th>Verdict</th>
-                    <th>Fatigue IA</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for log in logs %}
-                <tr>
-                    <td><strong>{{ log.nom }}</strong></td>
-                    <td><span class="badge-score">{{ log.score_coherence }}%</span></td>
-                    <td>{{ log.verdict }}</td>
-                    <td style="color: #1e40af;">{{ log.fatigue_ia }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <button onclick="window.location.href='/'" style="background: #3b82f6; margin-top: 30px;">Retour Accueil</button>
+
+    <div class="main-content">
+        <div class="glass-card" style="max-width: 900px;">
+            <h1>Historique des Analyses</h1>
+            <div class="table-container">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Score</th>
+                            <th>Verdict</th>
+                            <th>État IA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                        <tr>
+                            <td><strong>{{ log.nom }}</strong></td>
+                            <td><span class="badge">{{ log.score_coherence }}%</span></td>
+                            <td>{{ log.verdict }}</td>
+                            <td style="color: #6366f1; font-size: 0.85rem;">{{ log.fatigue_ia }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <button onclick="window.location.href='/'" class="btn-secondary">Nouveau Test</button>
+        </div>
     </div>
 </body>
 </html>
